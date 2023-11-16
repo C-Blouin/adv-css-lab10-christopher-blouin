@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>2D CSS Transforms</title>
+    <style>
+
+        /* 
+        
+        Advanced Interface Design with CSS - Transforms, Transitions, and Animations
+        
+        Christopher Blouin
+        
+        */
+
+        :root {
+            --transition: 0.2s ease-in-out;
+        }
+
+        body {
+            font-family: sans-serif;
+            background-repeat: no-repeat;
+        }
+
+        /* Transform container properties */
+        .transforms {
+            /* Display flex to allow the children paragraph elements to sit side by each. */
+            display: flex;
+            /* Child elements will wrap when there isn't enough space in the container. */
+            flex-wrap: wrap;
+            /* Center the container contents. */
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+            /* White place between each child elements inside the container. */
+            gap: 8rem;
+            /* The container height must be 100% of the viewport minimum height using vh. */
+            min-height: 100vh;
+        }
+
+        /* Global paragraph styles. */
+        p {
+            height: 100px;
+            width: 100px;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* Only the 5th paragrpah in the .transforms container will be the lime green. */
+        .transforms p:nth-of-type(5) {
+            color: #77ff32;
+        }
+
+        /* Set the global transition of 0.2s ease-in-out from the root to all the paragraph elements, allowing for a transition to occur if say one of the paragraphs is hovered over. */
+        p#rotate,
+        p#scale,
+        p#skew,
+        p#translate,
+        .transforms p:nth-of-type(5) {
+            transition: var(--transition);
+        }
+
+        /* Rotate the first paragraph */
+        p#rotate {
+            background-color: orange;
+            transform: rotate(48deg);
+        }
+
+        /* Rotate the first paragraph 320deg on element hover */
+        p#rotate:hover {
+            transform: rotate(320deg);
+        }
+
+        /* Scale the second paragraph element */
+        p#scale {
+            background-color: purple;
+            transform: scale(1.75);
+        }
+
+        /* Scale down the second paragraph to the initial size of 1 on hover. */
+        p#scale:hover {
+            transform: scale(1);
+        }
+
+        /* Skew the third paragraph statically. */
+        p#skew {
+            background-color: limegreen;
+            transform: skew(15deg, 10deg);
+        }
+
+        /* Skew the third paragraph on hover. */
+        p#skew:hover {
+            transform: skew(0deg, 0deg);
+        }
+
+        /* Translate the fourth paragraph 2rem on the x-axis and 1.5rem on y-axis. */
+        p#translate {
+            background-color: hotpink;
+            transform: translate(2rem, 1.5rem);
+        }
+
+        /* Translate the fourth paragraph element to the orginal position in the DOM on hover by setting the x and y values to 0rem. */
+        p#translate:hover {
+            transform: translate(0rem, 0rem);
+        }
+
+        /* Animate the fifth paragraph element. */
+
+         .transforms p:nth-of-type(5) {
+            display: inline-block;
+            font-weight: bold;
+            position: relative;
+            /* Declaring the animation property, matching the name of the keyframe animation below. */
+            animation: grow;
+            /* Duration of the keyframe animation set to 3 seconds. */
+            animation-duration: 3s;
+            /* Iteration property to control an infinite loop of the animation. */
+            animation-iteration-count: infinite;
+            /* Alternate allows the animation to play from the start to end, then from the end to the start. */
+            animation-direction: alternate;
+         }
+
+
+         /* This keyframe animation will increase the size of the targeted element by changing the scale transform property throughout the animation. */
+        @keyframes grow {
+
+            0% {
+                background-color:rgb(208, 255, 0);
+                transform: scale(0.5); 
+            }
+
+            25% {
+                background-color:rgb(175, 214, 0);
+                transform: scale(0.75); 
+                border-radius: 30%;
+            }
+
+            50% {
+                background-color:rgb(153, 187, 0); 
+                border-radius: 0;
+                /* Rotate the element 50% through the animation sequence. */
+                rotate: 90deg;
+                transform: scale(1);
+                /* Apply a border radius at 50% within the animation sequence, and then alternate the values throughout the 75% and 100% animation breakpoints. */
+                border-radius: 50%;
+            }
+
+            75% {
+                background-color:rgb(100, 122, 0);
+                transform: scale(1.25); 
+                border-radius: 30%;
+                
+            }
+
+            100% {
+                background-color:rgb(75, 92, 0);
+                transform: scale(1.5);
+                border-radius: 50%;
+            }
+
+        }
+
+    </style>
+</head>
+<body>
+    <section class="transforms">
+        <p id="rotate">Rotate me.</p>
+        <p id="scale">Scale me.</p>
+        <p id="skew">Skew me.</p>
+        <p id="translate">Translate me.</p>
+        <p id="animation"></p>
+    </section>
+</body>
+</html>
